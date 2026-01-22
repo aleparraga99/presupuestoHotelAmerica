@@ -1,6 +1,8 @@
 
 
+
 // Habilita la cantidad de noches de cochera si se elige //
+
 function controlarCochera() {
     const cochera = Number(document.getElementById("cochera").value);
     const nochesCocheraInput = document.getElementById("nochesCochera");
@@ -16,7 +18,10 @@ function controlarCochera() {
     }
 }
 
-// Calcula el presupuesto //
+
+
+// Se calcula el presupuesto //
+
 function calcular() {
     const precioBase = Number(document.getElementById("habitacion").value);
     const descuento = Number(document.getElementById("descuento").value);
@@ -33,13 +38,13 @@ function calcular() {
     const montoDescuento = subtotal * descuento;
     const totalFinal = subtotal - montoDescuento;
 
-   const sena = totalFinal * 0.2;
-const saldo = totalFinal - sena;
+    const sena = totalFinal * 0.2;
+    const saldo = totalFinal - sena;
 
-document.getElementById("resultado").innerHTML = `
+    document.getElementById("resultado").innerHTML = `
   Total habitación: $${totalHabitacion.toLocaleString("es-AR")} <br>
   Total cochera: $${totalCochera.toLocaleString("es-AR")} <br>
-  Descuento: -$${montoDescuento.toLocaleString("es-AR")} <br><br>
+  Descuento ${Math.round(descuento * 100)}% OFF: -$${montoDescuento.toLocaleString("es-AR")} <br><br>
 
   <strong>Total estadía: $${totalFinal.toLocaleString("es-AR")}</strong><br>
   <strong>Seña (20%): $${sena.toLocaleString("es-AR")}</strong><br>
@@ -48,76 +53,85 @@ document.getElementById("resultado").innerHTML = `
 
 }
 
+
 // Estado inicial
+
 controlarCochera();
 
-// Generar PDF //
+
+
 function generarPDF() {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
 
-  // Obtener elementos
-  const habitacion = document.getElementById("habitacion");
-  const checkIn = document.getElementById("checkin").value;
-  const checkOut = document.getElementById("checkout").value;
-  const nochesHabitacion = Number(document.getElementById("nochesHabitacion").value);
-  const cochera = document.getElementById("cochera");
-  const nochesCochera = Number(document.getElementById("nochesCochera").value);
-  const descuento = document.getElementById("descuento");
+    // Captura de datos
+    const numeroReserva = document.getElementById("numeroReserva").value;
+    const habitacion = document.getElementById("habitacion");
+    const checkIn = document.getElementById("checkin").value;
+    const checkOut = document.getElementById("checkout").value;
+    const nochesHabitacion = Number(document.getElementById("nochesHabitacion").value);
+    const cochera = document.getElementById("cochera");
+    const nochesCocheraInput = document.getElementById("nochesCochera");
+    const descuento = document.getElementById("descuento");
 
-  // Recalcular totales
-  const precioBase = Number(habitacion.value);
-  const totalHabitacion = precioBase * nochesHabitacion;
-  const totalCochera = Number(cochera.value) * nochesCochera;
-  const subtotal = totalHabitacion + totalCochera;
+    // Se validan campos vacíos
+    if (!numeroReserva || !checkIn || !checkOut) {
+        alert("Completa número de reserva, check in y check out");
+        return;
+    }
 
-  const descuentoValor = Number(descuento.value);
-  const montoDescuento = subtotal * descuentoValor;
-  const totalFinal = subtotal - montoDescuento;
+    // Cálculos
+    const precioBase = Number(habitacion.value);
+    const totalHabitacion = precioBase * nochesHabitacion;
 
-  const sena = totalFinal * 0.2;
-  const saldo = totalFinal - sena;
+    const precioCochera = Number(cochera.value);
+    const nochesCochera = precioCochera === 0 ? 0 : Number(nochesCocheraInput.value);
+    const totalCochera = precioCochera * nochesCochera;
 
-  // Título
-  pdf.setFontSize(16);
-  pdf.text("Comprobante de Reserva", 20, 20);
+    const subtotal = totalHabitacion + totalCochera;
 
-  // Contenido
-  pdf.setFontSize(12);
-  let y = 40;
+    const descuentoValor = Number(descuento.value);
+    const montoDescuento = Math.round(subtotal * descuentoValor);
+    const totalFinal = subtotal - montoDescuento;
 
-  pdf.text(`Tipo de habitación: ${habitacion.options[habitacion.selectedIndex].text}`, 20, y);
-  y += 10;
+    const sena = Math.round(totalFinal * 0.2);
+    const saldo = totalFinal - sena;
 
-  pdf.text(`Check-in: ${formatearFecha(checkIn)}`, 20, y);
-  y += 10;
+    // Título
+   pdf.setFont("times");
+   pdf.setFontSize(16);
+   pdf.text("Comprobante de Reserva", 105, 20, { align: "center" });
 
-  pdf.text(`Check-out: ${formatearFecha(checkOut)}`, 20, y);
-  y += 10;
+    // Contenido
+    pdf.setFontSize(14);
+    let y = 40;
 
-  pdf.text(`Cantidad de noches: ${nochesHabitacion}`, 20, y);
-  y += 10;
+    pdf.text(`Reserva N° ${numeroReserva}`, 20, y); y += 10;
+    pdf.text(`  - Tipo de habitación: ${habitacion.options[habitacion.selectedIndex].text}`, 20, y); y += 10;
+    pdf.text(`  - Check In: ${formatearFecha(checkIn)}`, 20, y); y += 10;
+    pdf.text(`  - Check Out: ${formatearFecha(checkOut)}`, 20, y); y += 10;
+    pdf.text(`  - Cantidad de noches: ${nochesHabitacion}`, 20, y); y += 10;
+    pdf.text(`  - Cochera: ${cochera.options[cochera.selectedIndex].text}`, 20, y); y += 10;
+    pdf.text(`  - Descuento: ${descuento.options[descuento.selectedIndex].text}`, 20, y); y += 15;
 
-  pdf.text(`Cochera: ${cochera.options[cochera.selectedIndex].text}`, 20, y);
-  y += 10;
+    // Totales
+    pdf.text(`Total estadía: $${totalFinal.toLocaleString("es-AR")}`, 20, y); y += 10;
+    pdf.text(`Seña (20%)*: $${sena.toLocaleString("es-AR")}`, 20, y); y += 10;
+    pdf.text(`Saldo: $${saldo.toLocaleString("es-AR")} efectivo contado al check in`, 20, y); y += 15;
 
-  pdf.text(`Noches cochera: ${nochesCochera}`, 20, y);
-  y += 10;
+    // Política de cancelación (texto largo)
+    const politica = `
+*Política de cancelación:
 
-  pdf.text(`Descuento: ${descuento.options[descuento.selectedIndex].text}`, 20, y);
-  y += 15;
+    En caso de prescindir de su estadía una vez realizada la reserva, deberá anunciarlo con 48 hs de antelación para poder reestablecer fecha de Check In y Check Out. Las cancelaciones con menos de 48 hs previas al ingreso implican la pérdida del monto abonado en concepto de seña.
+Gracias por comprender. Atte: Administración Hotel America.
+`;
 
-  // Totales
-  pdf.text(`Total estadía: $${totalFinal.toLocaleString("es-AR")}`, 20, y);
-  y += 10;
+    const lineas = pdf.splitTextToSize(politica, 170);
+    pdf.text(lineas, 20, y);
 
-  pdf.text(`Seña (20%): $${sena.toLocaleString("es-AR")}`, 20, y);
-  y += 10;
-
-  pdf.text(`Saldo a abonar en check-in: $${saldo.toLocaleString("es-AR")}`, 20, y);
-
-  // Guardar PDF
-  pdf.save("comprobante-reserva.pdf");
+    // Guardar PDF
+    pdf.save(`Comprobante de Reserva ${numeroReserva}.pdf`);
 }
 
 
