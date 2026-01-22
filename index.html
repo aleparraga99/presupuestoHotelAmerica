@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <title>Presupuesto de Estadía</title>
+
+</head>
+
+<body>
+  <div class="card">
+    <h2>Presupuesto de reserva</h2>
+    <label>Tipo de habitación</label>
+
+    <select id="habitacion">
+      <option value="117000">Single</option>
+      <option value="123000">Doble chica</option>
+      <option value="127000">Doble standard</option>
+      <option value="139000">Doble Twin</option>
+      <option value="139000">Doble Queen</option>
+      <option value="148000">Doble King</option>
+      <option value="139000">Triple chica</option>
+      <option value="160500">Triple King</option>
+      <option value="197900">Depto estándar</option>
+      <option value="197900">Depto chico</option>
+    </select>
+
+    <label>Check-in</label>
+    <input type="date" id="checkin" onchange="calcularNochesEstadia()">
+
+    <label>Check-out</label>
+    <input type="date" id="checkout" onchange="calcularNochesEstadia()">
+
+    <label>Cantidad de noches</label>
+    <input type="number" id="nochesHabitacion" readonly>
+
+    <label>Cochera</label>
+    <select id="cochera" onchange="controlarCochera()">
+      <option value="0">Sin cochera</option>
+      <option value="15000">Cochera 1</option>
+      <option value="15000">Cochera 2</option>
+      <option value="15000">Cochera 3</option>
+      <option value="15000">Cochera 4</option>
+      <option value="15000">Cochera 5</option>
+      <option value="15000">Cochera 6</option>
+      <option value="10000">Cochera 7</option>
+      <option value="10000">Cochera 8</option>
+      <option value="10000">Cochera 9</option>
+      <option value="10000">Cochera 10</option>
+      <option value="10000">Cochera 11</option>
+    </select>
+
+
+    <label>Noches de cochera</label>
+    <input type="number" id="nochesCochera" value="0" min="0">
+
+    <label>Descuento</label>
+    <select id="descuento">
+      <option value="0">Sin descuento</option>
+      <option value="0.10">10% OFF</option>
+      <option value="0.15">15% OFF</option>
+      <option value="0.20">20% OFF</option>
+    </select>
+
+
+    <button onclick="calcular()">Calcular presupuesto</button>
+    <button onclick="generarPDF()">Descargar PDF</button>
+
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+  <script src="funciones.js"></script>
+</body>
+
+</html>
