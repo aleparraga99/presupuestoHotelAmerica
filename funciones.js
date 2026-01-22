@@ -44,6 +44,7 @@ function calcular() {
     document.getElementById("resultado").innerHTML = `
   Total habitación: $${totalHabitacion.toLocaleString("es-AR")} <br>
   Total cochera: $${totalCochera.toLocaleString("es-AR")} <br>
+  SubTotal estadía: $${(totalHabitacion+totalCochera).toLocaleString("es-AR")}<br>
   Descuento ${Math.round(descuento * 100)}% OFF: -$${montoDescuento.toLocaleString("es-AR")} <br><br>
 
   <strong>Total estadía: $${totalFinal.toLocaleString("es-AR")}</strong><br>
