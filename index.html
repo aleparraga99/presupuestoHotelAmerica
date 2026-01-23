@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Presupuesto Hotel</title>
@@ -8,14 +9,15 @@
 </head>
 
 <body>
+  <div class="contenedor">
   <div class="card">
     <h2>Presupuesto informativo</h2>
 
-    <label>Número</label>
-    <input type="number" id="numeroReserva">
+    <label>Número de reserva</label>
+    <input type="number" id="numeroReserva" min="1">
 
     <label>Tipo de habitación</label>
-    <select id="habitacion">
+    <select id="habitacion" onchange="actualizarResumen()">
       <option value="117000">Single</option>
       <option value="123000">Doble chica</option>
       <option value="127000">Doble standard</option>
@@ -29,26 +31,35 @@
     </select>
 
     <label>Check-in</label>
-    <input type="date" id="checkin" onchange="calcularNochesEstadia()">
+    <input type="date" id="checkin" onchange="calcularNochesEstadia(); actualizarResumen()">
 
     <label>Check-out</label>
-    <input type="date" id="checkout" onchange="calcularNochesEstadia()">
+    <input type="date" id="checkout" onchange="calcularNochesEstadia(); actualizarResumen()">
 
     <label>Cantidad de noches</label>
-    <input type="number" id="nochesHabitacion" readonly>
+    <input type="number" id="nochesHabitacion" readonly onchange="actualizarResumen()">
 
     <label>Cochera</label>
-    <select id="cochera" onchange="controlarCochera()">
+    <select id="cochera" onchange="controlarCochera(); actualizarResumen()">
       <option value="0">-</option>
-      <option value="15000">Cochera 1 a 6</option>
-      <option value="10000">Cochera 7 a 11</option>
+      <option value="15000">Cochera 1</option>
+      <option value="15000">Cochera 2</option>
+      <option value="15000">Cochera 3</option>
+      <option value="15000">Cochera 4</option>
+      <option value="15000">Cochera 5</option>
+      <option value="15000">Cochera 6</option>
+      <option value="10000">Cochera 7</option>
+      <option value="10000">Cochera 8</option>
+      <option value="10000">Cochera 9</option>
+      <option value="10000">Cochera 10</option>
+      <option value="10000">Cochera 11</option>
     </select>
 
     <label>Noches de cochera</label>
-    <input type="number" id="nochesCochera" value="0" min="0">
+    <input type="number" id="nochesCochera" readonly>
 
     <label>Descuento</label>
-    <select id="descuento">
+    <select id="descuento" onchange="actualizarResumen()">
       <option value="0">Sin descuento</option>
       <option value="0.10">10% OFF</option>
       <option value="0.15">15% OFF</option>
@@ -59,18 +70,29 @@
     <button onclick="generarPDF()">Descargar PDF</button>
     <button onclick="confirmarReserva()">Confirmar reserva</button>
 
-    <p class="info">
-      Presupuesto informativo – no implica reserva ni bloqueo de fechas.
-    </p>
-
     <div class="resultado" id="resultado"></div>
+
 
     <hr>
 
     <h3>Calendario de reservas confirmadas</h3>
     <div id="calendario"></div>
   </div>
-
+  <div class="card2">
+    <h3>Resumen de la reserva</h3>
+    <p><strong>Habitación:</strong> <span id="rHabitacion">-</span></p>
+    <p><strong>Check-in:</strong> <span id="rCheckin">-</span></p>
+    <p><strong>Check-out:</strong> <span id="rCheckout">-</span></p>
+    <p><strong>Noches:</strong> <span id="rNoches">-</span></p>
+    <p><strong>Cochera:</strong> <span id="rCochera">-</span></p>
+    <p id="rNochesCocheraCont" style="display:none;">
+      <strong>Noches cochera:</strong> <span id="rNochesCochera">-</span>
+    </p>
+    <p><strong>Descuento:</strong><span id="rDescuento">-</span></p>
+    <div class="resultado" id="resultado"></div>
+  </div>
+</div>
   <script src="funciones.js"></script>
 </body>
+
 </html>

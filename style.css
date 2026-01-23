@@ -1,42 +1,111 @@
 body {
   font-family: Arial, sans-serif;
   background: #f4f6f8;
-  padding: 30px;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical */
 }
 
-.card {
-  max-width: 420px;
+.contenedor {
+  margin-top: 50px;
+  display: flex;
+  gap: 30px;
+  align-items: flex-start; /* alinea arriba entre sí */
+}
+
+    .card {
+      max-width: 400px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card2 {
+  max-width: 400px;
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  margin: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-top: 0; 
+}
+
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    select, input {
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #2c7be5;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1a68d1;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f8ff;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    select{
+      width: 400px;
+    }
+
+    input{
+      width: 380px;
+    }
+
+    .contenedor {
+    display: flex;
+    gap: 30px;
+}
+
+.formulario {
+    width: 45%;
+}
+
+.card2 {
+    width: 35%;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+   
 }
 
 label {
-  font-weight: bold;
-  margin-top: 10px;
-  display: block;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
 }
 
-input, select, button {
-  width: 100%;
-  margin-top: 5px;
-  padding: 8px;
-}
 
-button {
-  margin-top: 10px;
-  background: #2c7be5;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-.resultado {
-  background: #eef;
-  padding: 10px;
-  margin-top: 10px;
-}
 
 .info {
   font-size: 12px;
