@@ -1,3 +1,6 @@
+
+
+
 // Habilita la cantidad de noches de cochera si se elige //
 function controlarCochera() {
     const cochera = Number(document.getElementById("cochera").value);
@@ -31,13 +34,17 @@ function calcular() {
     const montoDescuento = subtotal * descuento;
     const totalFinal = subtotal - montoDescuento;
 
-   const sena = totalFinal * 0.2;
-const saldo = totalFinal - sena;
+    const sena = totalFinal * 0.2;
+    const saldo = totalFinal - sena;
 
-document.getElementById("resultado").innerHTML = `
+    document.getElementById("resultadoPresupuesto").innerHTML = `
   Total habitación: $${totalHabitacion.toLocaleString("es-AR")} <br>
-  Total cochera: $${totalCochera.toLocaleString("es-AR")} <br>
-  Descuento: -$${montoDescuento.toLocaleString("es-AR")} <br><br>
+  Total parking: ${cochera === 0
+            ? "Sin cochera reservada"
+            : `$${totalCochera.toLocaleString("es-AR")}`
+        } <br>
+
+  Descuento: - $${montoDescuento.toLocaleString("es-AR")} <br><br>
 
   <strong>Total estadía: $${totalFinal.toLocaleString("es-AR")}</strong><br>
   <strong>Seña (20%): $${sena.toLocaleString("es-AR")}</strong><br>
@@ -51,71 +58,71 @@ controlarCochera();
 
 // Generar PDF //
 function generarPDF() {
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
 
-  // Obtener elementos
-  const habitacion = document.getElementById("habitacion");
-  const checkIn = document.getElementById("checkin").value;
-  const checkOut = document.getElementById("checkout").value;
-  const nochesHabitacion = Number(document.getElementById("nochesHabitacion").value);
-  const cochera = document.getElementById("cochera");
-  const nochesCochera = Number(document.getElementById("nochesCochera").value);
-  const descuento = document.getElementById("descuento");
+    // Obtener elementos
+    const habitacion = document.getElementById("habitacion");
+    const checkIn = document.getElementById("checkin").value;
+    const checkOut = document.getElementById("checkout").value;
+    const nochesHabitacion = Number(document.getElementById("nochesHabitacion").value);
+    const cochera = document.getElementById("cochera");
+    const nochesCochera = Number(document.getElementById("nochesCochera").value);
+    const descuento = document.getElementById("descuento");
 
-  // Recalcular totales
-  const precioBase = Number(habitacion.value);
-  const totalHabitacion = precioBase * nochesHabitacion;
-  const totalCochera = Number(cochera.value) * nochesCochera;
-  const subtotal = totalHabitacion + totalCochera;
+    // Recalcular totales
+    const precioBase = Number(habitacion.value);
+    const totalHabitacion = precioBase * nochesHabitacion;
+    const totalCochera = Number(cochera.value) * nochesCochera;
+    const subtotal = totalHabitacion + totalCochera;
 
-  const descuentoValor = Number(descuento.value);
-  const montoDescuento = subtotal * descuentoValor;
-  const totalFinal = subtotal - montoDescuento;
+    const descuentoValor = Number(descuento.value);
+    const montoDescuento = subtotal * descuentoValor;
+    const totalFinal = subtotal - montoDescuento;
 
-  const sena = totalFinal * 0.2;
-  const saldo = totalFinal - sena;
+    const sena = totalFinal * 0.2;
+    const saldo = totalFinal - sena;
 
-  // Título
-  pdf.setFontSize(16);
-  pdf.text("Comprobante de Reserva", 20, 20);
+    // Título
+    pdf.setFontSize(16);
+    pdf.text("Comprobante de Reserva", 20, 20);
 
-  // Contenido
-  pdf.setFontSize(12);
-  let y = 40;
+    // Contenido
+    pdf.setFontSize(12);
+    let y = 40;
 
-  pdf.text(`Tipo de habitación: ${habitacion.options[habitacion.selectedIndex].text}`, 20, y);
-  y += 10;
+    pdf.text(`Tipo de habitación: ${habitacion.options[habitacion.selectedIndex].text}`, 20, y);
+    y += 10;
 
-  pdf.text(`Check-in: ${formatearFecha(checkIn)}`, 20, y);
-  y += 10;
+    pdf.text(`Check-in: ${formatearFecha(checkIn)}`, 20, y);
+    y += 10;
 
-  pdf.text(`Check-out: ${formatearFecha(checkOut)}`, 20, y);
-  y += 10;
+    pdf.text(`Check-out: ${formatearFecha(checkOut)}`, 20, y);
+    y += 10;
 
-  pdf.text(`Cantidad de noches: ${nochesHabitacion}`, 20, y);
-  y += 10;
+    pdf.text(`Cantidad de noches: ${nochesHabitacion}`, 20, y);
+    y += 10;
 
-  pdf.text(`Cochera: ${cochera.options[cochera.selectedIndex].text}`, 20, y);
-  y += 10;
+    pdf.text(`Cochera: ${cochera.options[cochera.selectedIndex].text}`, 20, y);
+    y += 10;
 
-  pdf.text(`Noches cochera: ${nochesCochera}`, 20, y);
-  y += 10;
+    pdf.text(`Noches cochera: ${nochesCochera}`, 20, y);
+    y += 10;
 
-  pdf.text(`Descuento: ${descuento.options[descuento.selectedIndex].text}`, 20, y);
-  y += 15;
+    pdf.text(`Descuento: ${descuento.options[descuento.selectedIndex].text}`, 20, y);
+    y += 15;
 
-  // Totales
-  pdf.text(`Total estadía: $${totalFinal.toLocaleString("es-AR")}`, 20, y);
-  y += 10;
+    // Totales
+    pdf.text(`Total estadía: $${totalFinal.toLocaleString("es-AR")}`, 20, y);
+    y += 10;
 
-  pdf.text(`Seña (20%): $${sena.toLocaleString("es-AR")}`, 20, y);
-  y += 10;
+    pdf.text(`Seña (20%): $${sena.toLocaleString("es-AR")}`, 20, y);
+    y += 10;
 
-  pdf.text(`Saldo a abonar en check-in: $${saldo.toLocaleString("es-AR")}`, 20, y);
+    pdf.text(`Saldo a abonar en check-in: $${saldo.toLocaleString("es-AR")}`, 20, y);
 
-  // Guardar PDF
-  pdf.save("comprobante-reserva.pdf");
+    // Guardar PDF
+    pdf.save("comprobante-reserva.pdf");
 }
 
 
@@ -198,6 +205,7 @@ renderCalendario();
 
 
 function actualizarResumen() {
+
     // HABITACIÓN (texto visible, no el precio)
     const habitacionSelect = document.getElementById("habitacion");
     document.getElementById("rHabitacion").textContent =
@@ -205,10 +213,10 @@ function actualizarResumen() {
 
     // FECHAS
     document.getElementById("rCheckin").textContent =
-    formatearFecha(document.getElementById("checkin").value);
+        formatearFecha(document.getElementById("checkin").value);
 
-document.getElementById("rCheckout").textContent =
-    formatearFecha(document.getElementById("checkout").value);
+    document.getElementById("rCheckout").textContent =
+        formatearFecha(document.getElementById("checkout").value);
 
 
     // NOCHES
@@ -217,18 +225,15 @@ document.getElementById("rCheckout").textContent =
 
     // COCHERA
     const cocheraSelect = document.getElementById("cochera");
-const cocheraTexto = cocheraSelect.options[cocheraSelect.selectedIndex].text;
-const cocheraValor = cocheraSelect.value;
+    const rCochera = document.getElementById("rCochera");
 
-if (cocheraValor !== "0") {
-    document.getElementById("rCochera").textContent = cocheraTexto;
-} else {
-    document.getElementById("rCochera").textContent = "-";
-}
+    const cocheraValor = cocheraSelect.value;
 
-/* OCULTAR SIEMPRE noches de cochera */
-document.getElementById("rNochesCocheraCont").style.display = "none";
-
+    if (cocheraValor === "0") {
+        rCochera.textContent = "Sin cochera reservada";
+    } else {
+        rCochera.textContent = cocheraSelect.options[cocheraSelect.selectedIndex].text;
+    }
 
     // Descuento
 
