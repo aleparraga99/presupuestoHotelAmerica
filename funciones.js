@@ -53,6 +53,20 @@ function calcular() {
 
 }
 
+function copiarPresupuesto() {
+    const resultado = document.getElementById("resultadoPresupuesto");
+
+    const texto = resultado.innerText; // solo texto, sin <br>, <strong>, etc.
+
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+            alert("Presupuesto copiado al portapapeles");
+        })
+        .catch(err => {
+            console.error("Error al copiar:", err);
+        });
+}
+
 // Estado inicial
 controlarCochera();
 
