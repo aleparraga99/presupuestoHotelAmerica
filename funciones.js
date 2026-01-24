@@ -2,6 +2,7 @@
 
 
 // Habilita y deshabilita la cantidad de noches de cochera //
+
 function controlarCochera() {
     const cochera = Number(document.getElementById("cochera").value);
     const nochesCocheraInput = document.getElementById("nochesCochera");
@@ -14,7 +15,38 @@ function controlarCochera() {
     }
 }
 
+// Calcula la cantidad de noches en funcion del check in y check out //
+
+function calcularNochesEstadia() {
+    const checkin = document.getElementById("checkin").value;
+    const checkout = document.getElementById("checkout").value;
+
+    if (!checkin || !checkout) {
+        return;
+    }
+
+    const fechaIngreso = new Date(checkin);
+    const fechaSalida = new Date(checkout);
+
+    // Valida que el check out sea posterior al check in //
+    if (fechaSalida <= fechaIngreso) {
+        alert("El check-out debe ser posterior al check-in");
+        document.getElementById("nochesHabitacion").value = "";
+        return;
+    }
+
+    // Diferencia en milisegundos //
+    const diferenciaMs = fechaSalida - fechaIngreso;
+
+    // Conversion a noches //
+    const noches = diferenciaMs / (1000 * 60 * 60 * 24);
+
+    document.getElementById("nochesHabitacion").value = noches; // Se settea la cantidad de noches
+    document.getElementById("nochesCochera").value = noches; // Se settea la cantidad de noches para cochera
+}
+
 // Calcula el presupuesto //
+
 function calcular() {
     const precioBase = Number(document.getElementById("habitacion").value);
     const descuento = Number(document.getElementById("descuento").value);
@@ -50,10 +82,12 @@ function calcular() {
 
 }
 
+// Copia el presupuesto en portapapeles //
+
 function copiarPresupuesto() {
     const resultado = document.getElementById("resultadoPresupuesto");
 
-    const texto = resultado.innerText; // solo texto, sin <br>, <strong>, etc.
+    const texto = resultado.innerText;
 
     navigator.clipboard.writeText(texto)
         .then(() => {
@@ -144,31 +178,7 @@ function formatearFecha(fecha) {
 }
 
 
-function calcularNochesEstadia() {
-    const checkin = document.getElementById("checkin").value;
-    const checkout = document.getElementById("checkout").value;
 
-    if (!checkin || !checkout) return;
-
-    const fechaIngreso = new Date(checkin);
-    const fechaSalida = new Date(checkout);
-
-    // Validación
-    if (fechaSalida <= fechaIngreso) {
-        alert("El check-out debe ser posterior al check-in");
-        document.getElementById("nochesHabitacion").value = "";
-        return;
-    }
-
-    // Diferencia en milisegundos
-    const diferenciaMs = fechaSalida - fechaIngreso;
-
-    // Conversión a noches
-    const noches = diferenciaMs / (1000 * 60 * 60 * 24);
-
-    document.getElementById("nochesHabitacion").value = noches;
-    document.getElementById("nochesCochera").value = noches;
-}
 
 /* ====== RESERVAS CONFIRMADAS ====== */
 
