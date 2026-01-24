@@ -220,6 +220,13 @@ renderCalendario();
 
 function actualizarResumen() {
 
+    // Número de reserva
+    const numeroReserva = document.getElementById("numeroReserva");
+    const rNumeroReserva = document.getElementById("rNumeroReserva");
+
+    rNumeroReserva.textContent = numeroReserva.value;
+
+
     // HABITACIÓN (texto visible, no el precio)
     const habitacionSelect = document.getElementById("habitacion");
     document.getElementById("rHabitacion").textContent =

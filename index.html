@@ -13,6 +13,9 @@
   <div class="card">
     <h2>Presupuesto</h2>
 
+    <label>Número de reserva</label>
+    <input id="numeroReserva" type="number" min="1" onchange="actualizarResumen()">
+
     <label>Tipo de habitación</label>
     <select id="habitacion" onchange="actualizarResumen()">
       <option value="117000">Single</option>
@@ -84,8 +87,7 @@
 
   <div class="card2">
     <h2>Resumen de la reserva</h2>
-    <label>Número de reserva</label>
-    <input type="number" id="numeroReserva" min="1">
+    <p><strong>Número de reserva: </strong><span id="rNumeroReserva">-</span></p>
     <p><strong>Tipo de habitación:</strong> <span id="rHabitacion">-</span></p>
     <p><strong>Check-in:</strong> <span id="rCheckin">-</span></p>
     <p><strong>Check-out:</strong> <span id="rCheckout">-</span></p>
