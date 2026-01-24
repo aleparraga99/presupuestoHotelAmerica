@@ -1,7 +1,7 @@
 
 
 
-// Habilita la cantidad de noches de cochera si se elige //
+// Habilita y deshabilita la cantidad de noches de cochera //
 function controlarCochera() {
     const cochera = Number(document.getElementById("cochera").value);
     const nochesCocheraInput = document.getElementById("nochesCochera");
@@ -11,9 +11,6 @@ function controlarCochera() {
         nochesCocheraInput.disabled = true;
     } else {
         nochesCocheraInput.disabled = false;
-        if (nochesCocheraInput.value == 0) {
-            nochesCocheraInput.value = 1;
-        }
     }
 }
 
@@ -25,7 +22,7 @@ function calcular() {
     const cochera = Number(document.getElementById("cochera").value);
     const nochesCochera = cochera === 0 ? 0 : Number(document.getElementById("nochesCochera").value);
 
-    // Totales sin descuento
+    // Totales sin descuento //
     const totalHabitacion = precioBase * nochesHabitacion;
     const totalCochera = cochera * nochesCochera;
     const subtotal = totalHabitacion + totalCochera;

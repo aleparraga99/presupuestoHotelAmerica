@@ -10,95 +10,95 @@
 
 <body>
   <div class="contenedor">
-  <div class="card">
-    <h2>Presupuesto</h2>
+    <div class="card">
+      <h2>Presupuesto</h2>
 
-    <label>Número de reserva</label>
-    <input id="numeroReserva" type="number" min="1" onchange="actualizarResumen()">
+      <label>Número de reserva</label>
+      <input id="numeroReserva" type="number" min="1" onchange="actualizarResumen()">
 
-    <label>Tipo de habitación</label>
-    <select id="habitacion" onchange="actualizarResumen()">
-      <option value="117000">Single</option>
-      <option value="123000">Doble Chica</option>
-      <option value="127000">Doble Standar</option>
-      <option value="139000">Doble Twin</option>
-      <option value="139000">Doble Queen</option>
-      <option value="148000">Doble King</option>
-      <option value="139000">Triple Chica</option>
-      <option value="144000">Triple Estándar</option>
-      <option value="160500">Triple King</option>
-      <option value="197900">Depto Standar</option>
-      <option value="197900">Depto Chico</option>
-    </select>
+      <label>Tipo de habitación</label>
+      <select id="habitacion" onchange="actualizarResumen()">
+        <option value="117000">Single</option>
+        <option value="123000">Doble Chica</option>
+        <option value="127000">Doble Standar</option>
+        <option value="139000">Doble Twin</option>
+        <option value="139000">Doble Queen</option>
+        <option value="148000">Doble King</option>
+        <option value="139000">Triple Chica</option>
+        <option value="144000">Triple Estándar</option>
+        <option value="160500">Triple King</option>
+        <option value="197900">Depto Standar</option>
+        <option value="197900">Depto Chico</option>
+      </select>
 
-    <label>Check-in</label>
-    <input type="date" id="checkin" onchange="calcularNochesEstadia(); actualizarResumen()">
+      <label>Check-in</label>
+      <input type="date" id="checkin" onchange="calcularNochesEstadia(); actualizarResumen()">
 
-    <label>Check-out</label>
-    <input type="date" id="checkout" onchange="calcularNochesEstadia(); actualizarResumen()">
+      <label>Check-out</label>
+      <input type="date" id="checkout" onchange="calcularNochesEstadia(); actualizarResumen()">
 
-    <label>Cantidad de noches</label>
-    <input type="number" id="nochesHabitacion" readonly onchange="actualizarResumen()">
+      <label>Cantidad de noches</label>
+      <input type="number" id="nochesHabitacion" readonly onchange="actualizarResumen()">
 
-    <label>Cochera</label>
-    <select id="cochera" onchange="controlarCochera(); actualizarResumen()">
-      <option value="0">-</option>
-      <option value="15000">Cochera 1</option>
-      <option value="15000">Cochera 2</option>
-      <option value="15000">Cochera 3</option>
-      <option value="15000">Cochera 4</option>
-      <option value="15000">Cochera 5</option>
-      <option value="15000">Cochera 6</option>
-      <option value="10000">Cochera 7</option>
-      <option value="10000">Cochera 8</option>
-      <option value="10000">Cochera 9</option>
-      <option value="10000">Cochera 10</option>
-      <option value="10000">Cochera 11</option>
-    </select>
+      <label>Cochera</label>
+      <select id="cochera" onchange="controlarCochera(); actualizarResumen()">
+        <option value="0">-</option>
+        <option value="15000">Cochera 1</option>
+        <option value="15000">Cochera 2</option>
+        <option value="15000">Cochera 3</option>
+        <option value="15000">Cochera 4</option>
+        <option value="15000">Cochera 5</option>
+        <option value="15000">Cochera 6</option>
+        <option value="10000">Cochera 7</option>
+        <option value="10000">Cochera 8</option>
+        <option value="10000">Cochera 9</option>
+        <option value="10000">Cochera 10</option>
+        <option value="10000">Cochera 11</option>
+      </select>
 
-    <label>Noches de cochera</label>
-    <input type="number" id="nochesCochera" readonly>
+      <label>Noches de cochera</label>
+      <input type="number" id="nochesCochera" readonly>
 
-    <label>Descuento</label>
-    <select id="descuento" onchange="actualizarResumen()">
-      <option value="0">Sin descuento</option>
-      <option value="0.10">10% OFF</option>
-      <option value="0.15">15% OFF</option>
-      <option value="0.20">20% OFF</option>
-    </select>
+      <label>Descuento</label>
+      <select id="descuento" onchange="actualizarResumen()">
+        <option value="0">Sin descuento</option>
+        <option value="0.10">10% OFF</option>
+        <option value="0.15">15% OFF</option>
+        <option value="0.20">20% OFF</option>
+      </select>
 
-    <button onclick="calcular()">Calcular presupuesto</button>
-    <!-- <button onclick="confirmarReserva()">Confirmar reserva</button> -->
-    <div class="resultado" id="resultadoPresupuesto">
-     
-    </div>
- <button onclick="copiarPresupuesto()">Copiar presupuesto</button>
+      <button onclick="calcular()">Calcular presupuesto</button>
+      <!-- <button onclick="confirmarReserva()">Confirmar reserva</button> -->
+      <div class="resultado" id="resultadoPresupuesto">
 
-    <hr>
+      </div>
+      <button onclick="copiarPresupuesto()">Copiar presupuesto</button>
 
-    <!-- <h3>Calendario de reservas confirmadas</h3>
+      <hr>
+
+      <!-- <h3>Calendario de reservas confirmadas</h3>
     <div id="calendario"></div> -->
- 
- 
+
+
+    </div>
+
+
+
+
+    <div class="card2">
+      <h2>Resumen de la reserva</h2>
+      <p><strong>Número de reserva: </strong><span id="rNumeroReserva">-</span></p>
+      <p><strong>Tipo de habitación:</strong> <span id="rHabitacion">-</span></p>
+      <p><strong>Check-in:</strong> <span id="rCheckin">-</span></p>
+      <p><strong>Check-out:</strong> <span id="rCheckout">-</span></p>
+      <p><strong>Noches:</strong> <span id="rNoches">-</span></p>
+      <p><strong>Estacionamiento:</strong> <span id="rCochera">-</span></p>
+      <p><strong>Descuento: </strong><span id="rDescuento">-</span></p>
+
+      <button onclick="generarPDF()">Descargar PDF</button>
+      <div class="resultado" id="resultadoResumen"></div>
+    </div>
   </div>
-
-
-
-
-  <div class="card2">
-    <h2>Resumen de la reserva</h2>
-    <p><strong>Número de reserva: </strong><span id="rNumeroReserva">-</span></p>
-    <p><strong>Tipo de habitación:</strong> <span id="rHabitacion">-</span></p>
-    <p><strong>Check-in:</strong> <span id="rCheckin">-</span></p>
-    <p><strong>Check-out:</strong> <span id="rCheckout">-</span></p>
-    <p><strong>Noches:</strong> <span id="rNoches">-</span></p>
-    <p><strong>Estacionamiento:</strong> <span id="rCochera">-</span></p>
-    <p><strong>Descuento: </strong><span id="rDescuento">-</span></p>
-
-    <button onclick="generarPDF()">Descargar PDF</button>
-    <div class="resultado" id="resultadoResumen"></div>
-  </div>
-</div>
   <script src="funciones.js"></script>
 </body>
 
