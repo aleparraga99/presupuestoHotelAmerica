@@ -33,7 +33,6 @@ body {
   margin-top: 0;
 }
 
-
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -93,15 +92,6 @@ button:hover {
 
 .formulario {
   width: 45%;
-}
-
-.card2 {
-  width: 35%;
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
 

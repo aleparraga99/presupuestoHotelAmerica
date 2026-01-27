@@ -68,12 +68,10 @@ function calcular() {
 
     document.getElementById("resultadoPresupuesto").innerHTML = `
   Total habitación: $${totalHabitacion.toLocaleString("es-AR")} <br>
-  Total parking: ${cochera === 0
-            ? "Sin cochera reservada"
-            : `$${totalCochera.toLocaleString("es-AR")}`
+  ${cochera === 0 ? "" : `Total parking: $${totalCochera.toLocaleString("es-AR")}`
         } <br>
-
-  Descuento: - $${montoDescuento.toLocaleString("es-AR")} <br><br>
+  ${descuento === 0 ? "" : `Descuento: - $${montoDescuento.toLocaleString("es-AR")}`
+        } <br><br>
 
   <strong>Total estadía: $${totalFinal.toLocaleString("es-AR")}</strong><br>
   <strong>Seña (20%): $${sena.toLocaleString("es-AR")}</strong><br>
@@ -91,7 +89,23 @@ function copiarPresupuesto() {
 
     navigator.clipboard.writeText(texto)
         .then(() => {
-            alert("Presupuesto copiado al portapapeles");
+            //
+        })
+        .catch(err => {
+            console.error("Error al copiar:", err);
+        });
+}
+
+function copiarResumen() {
+    const resumen = document.getElementById("resultadoResumen");
+
+    let texto = resumen.innerText;
+    texto = texto.replace(/\n\s*\n/g, "\n").trim();
+
+
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+
         })
         .catch(err => {
             console.error("Error al copiar:", err);
@@ -252,6 +266,7 @@ function actualizarResumen() {
         document.getElementById("nochesHabitacion").value || "-";
 
     // COCHERA
+
     const cocheraSelect = document.getElementById("cochera");
     const rCochera = document.getElementById("rCochera");
 
@@ -268,4 +283,33 @@ function actualizarResumen() {
     const descuentoSelect = document.getElementById("descuento");
     document.getElementById("rDescuento").textContent =
         descuentoSelect.options[descuentoSelect.selectedIndex].text;
+
+
+    // Total estadia
+    const precioBase = Number(document.getElementById("habitacion").value);
+    const descuento = Number(document.getElementById("descuento").value);
+    const nochesHabitacion = Number(document.getElementById("nochesHabitacion").value);
+    const cochera = Number(document.getElementById("cochera").value);
+    const nochesCochera = cochera === 0 ? 0 : Number(document.getElementById("nochesCochera").value);
+
+    // Totales sin descuento //
+    const totalHabitacion = precioBase * nochesHabitacion;
+    const totalCochera = cochera * nochesCochera;
+    const subtotal = totalHabitacion + totalCochera;
+
+    // Descuento aplicado al total
+    const montoDescuento = subtotal * descuento;
+    const totalFinal = subtotal - montoDescuento;
+
+    const sena = totalFinal * 0.2;
+    const saldo = totalFinal - sena;
+
+    document.getElementById("rTotalEstadia").innerText =
+        `$${totalFinal.toLocaleString("es-AR")}`;
+
+    document.getElementById("rSeña").innerText =
+        `$${sena.toLocaleString("es-AR")}`;
+
+    document.getElementById("rSaldo").innerText =
+        `$${saldo.toLocaleString("es-AR")}`;
 }

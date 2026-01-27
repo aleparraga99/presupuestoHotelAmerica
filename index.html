@@ -87,16 +87,23 @@
 
     <div class="card2">
       <h2>Resumen de la reserva</h2>
-      <p><strong>Número de reserva: </strong><span id="rNumeroReserva">-</span></p>
-      <p><strong>Tipo de habitación:</strong> <span id="rHabitacion">-</span></p>
-      <p><strong>Check-in:</strong> <span id="rCheckin">-</span></p>
-      <p><strong>Check-out:</strong> <span id="rCheckout">-</span></p>
-      <p><strong>Noches:</strong> <span id="rNoches">-</span></p>
-      <p><strong>Estacionamiento:</strong> <span id="rCochera">-</span></p>
-      <p><strong>Descuento: </strong><span id="rDescuento">-</span></p>
+      <div id="resultadoResumen">
+        <p><strong>*Reserva N°*: </strong><span id="rNumeroReserva">-</span></p>
+        <p><strong>- Tipo de habitación:</strong> <span id="rHabitacion">-</span></p>
+        <p><strong>- Check-in:</strong> <span id="rCheckin">-</span></p>
+        <p><strong>- Check-out:</strong> <span id="rCheckout">-</span></p>
+        <p><strong>- Cantidad de noches:</strong> <span id="rNoches">-</span></p>
+        <p><strong>- Estacionamiento:</strong> <span id="rCochera">-</span></p>
+        <p><strong>- Descuento: </strong><span id="rDescuento">-</span></p>
+        <p><strong>- Total estadía: </strong><span id="rTotalEstadia">-</span></p>
+        <p><strong>- Seña (20%): </strong><span id="rSeña">-</span></p>
+        <p><strong>- Saldo: </strong><span id="rSaldo">-</span></p>
 
-      <button onclick="generarPDF()">Descargar PDF</button>
-      <div class="resultado" id="resultadoResumen"></div>
+
+      </div>
+      <button onclick="copiarResumen()">Copiar resumen</button>
+
+
     </div>
   </div>
   <script src="funciones.js"></script>
