@@ -123,3 +123,12 @@ button:hover {
   background: #f8d7da;
   font-weight: bold;
 }
+
+
+
+@media (max-width: 768px) {
+  .contenedor {
+    display: flex;
+    flex-direction: column;
+  }
+}
