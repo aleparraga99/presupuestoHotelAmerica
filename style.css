@@ -131,4 +131,19 @@ button:hover {
     display: flex;
     flex-direction: column;
   }
+
+  .card2{
+    width: 85%;
+  }
+
+  .card{
+    width: 90%;
+  }
+  input{
+    width: 90%;
+  }
+  select{
+    width: 95.6%;
+  }
+
 }
